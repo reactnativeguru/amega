@@ -1,8 +1,7 @@
 
-![WhatsApp Image 2024-05-28 at 12 50 07](https://github.com/reactnativeguru/amega/assets/44550136/5bc37360-207e-49e9-adcb-458c1b1f6fad)
-![WhatsApp Image 2024-05-28 at 12 50 06](https://github.com/reactnativeguru/amega/assets/44550136/2a3c594e-89c1-4ebe-ad13-b2b5d3af2375)
-![WhatsApp Image 2024-05-28 at 12 50 06 (1)](https://github.com/reactnativeguru/amega/assets/44550136/06e19986-1acc-4b6f-941c-806ef8938108)
-
+![WhatsApp Image 2024-05-28 at 12 50 07](https://github.com/reactnativeguru/amega/assets/44550136/e5d976e7-7adf-4dbe-8b27-32849bdbeb2e)
+![WhatsApp Image 2024-05-28 at 12 50 06](https://github.com/reactnativeguru/amega/assets/44550136/4083f39e-981a-4648-9edd-18e726002d5a)
+![WhatsApp Image 2024-05-28 at 12 50 06 (1)](https://github.com/reactnativeguru/amega/assets/44550136/642f97ae-0e70-40cd-a821-09f05e8af4bc)
 
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
