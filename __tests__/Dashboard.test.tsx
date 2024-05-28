@@ -3,12 +3,10 @@ import {render, fireEvent, waitFor} from '@testing-library/react-native';
 import Dashboard from '../src/screens/Dashboard';
 import {getIPDetail} from '../src/utils/RequestHandler';
 
-// Mock the navigation prop
 const mockNavigation = {
   navigate: jest.fn(),
 };
 
-// Mock the getIPDetail function
 jest.mock('../src/utils/RequestHandler', () => ({
   getIPDetail: jest.fn(),
 }));
@@ -80,16 +78,5 @@ describe('Dashboard', () => {
     await waitFor(() => {
       expect(getByText('IP: 192.168.1.1')).toBeTruthy();
     });
-
-    // const images = getAllByRole('image');
-    // fireEvent.press(images[0]);
-
-    // expect(mockNavigation.navigate).toHaveBeenCalledWith('Profile', {
-    //   ip: '192.168.1.1',
-    //   isp: 'Mock ISP',
-    //   address: 'Mock City, Mock Country',
-    //   timezone: '+00:00',
-    //   image: images[0].props.source,
-    // });
   });
 });

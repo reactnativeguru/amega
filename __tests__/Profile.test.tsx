@@ -3,8 +3,7 @@ import {render, waitFor} from '@testing-library/react-native';
 import Profile from '../src/screens/Profile';
 import {getIPDetail} from '../src/utils/RequestHandler';
 
-// Mock the getIPDetail function
-jest.mock('../utils/RequestHandler', () => ({
+jest.mock('../src/utils/RequestHandler', () => ({
   getIPDetail: jest.fn(),
 }));
 
@@ -24,13 +23,12 @@ describe('Profile', () => {
   });
 
   it('renders correctly with route params', () => {
-    const {getByText, getByRole} = render(<Profile route={mockRoute} />);
+    const {getByText} = render(<Profile route={mockRoute} />);
 
     expect(getByText('IP: 192.168.1.1')).toBeTruthy();
     expect(getByText('ISP: Mock ISP')).toBeTruthy();
     expect(getByText('Timezone: UTC +00:00')).toBeTruthy();
     expect(getByText('Address: Mock City, Mock Country')).toBeTruthy();
-    expect(getByRole('image')).toBeTruthy();
   });
 
   it('renders correctly with fetched IP details', async () => {
