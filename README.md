@@ -1,3 +1,9 @@
+
+![WhatsApp Image 2024-05-28 at 12 50 07](https://github.com/reactnativeguru/amega/assets/44550136/616687f0-64de-4675-9586-5b23ec7ec864)
+![WhatsApp Image 2024-05-28 at 12 50 06](https://github.com/reactnativeguru/amega/assets/44550136/72020ec9-a437-49e3-8eda-f3293c65854f)
+![WhatsApp Image 2024-05-28 at 12 50 06 (1)](https://github.com/reactnativeguru/amega/assets/44550136/29115054-8abd-47c2-a25d-66afa6160d53)
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
