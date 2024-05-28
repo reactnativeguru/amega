@@ -9,39 +9,40 @@ import {
 } from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import WebSocket from 'isomorphic-ws';
+import {TradeData} from '../types/MarketData';
+
+const subscribe = {
+  method: 'SUBSCRIBE',
+  params: ['btcusdt@aggTrade'],
+  id: 1,
+};
 
 const MarketData: React.FC = () => {
-  const [tradeData, setTradeData] = useState([]);
-  const chartData = tradeData.map(data => data.p.toFixed(2));
+  const [tradeData, setTradeData] = useState<TradeData[]>([]);
+  const chartData = tradeData.map(item => item.p.toFixed(2));
 
   useEffect(() => {
     const ws = new WebSocket('wss://stream.binance.com:443/ws/btcusdt');
 
-    const subscribe = {
-      method: 'SUBSCRIBE',
-      params: ['btcusdt@aggTrade'],
-      id: 1,
-    };
-
-    ws.onopen = function open() {
+    ws.onopen = () => {
       console.log('connected');
       ws.send(JSON.stringify(subscribe));
     };
 
-    ws.onclose = function close() {
+    ws.onclose = () => {
       console.log('disconnected');
     };
 
-    ws.onmessage = function incoming(data) {
+    ws.onmessage = (data: any) => {
+      console.log(data);
       let incomingData = JSON.parse(data.data);
       if (incomingData) {
-        let newTradeData = {
+        let newTradeData: TradeData = {
           p: Number(incomingData?.p),
           q: Number(incomingData?.q),
           s: incomingData?.s,
           t: incomingData?.T,
         };
-        console.log(newTradeData);
         if (
           newTradeData.p &&
           newTradeData.q &&
@@ -59,8 +60,6 @@ const MarketData: React.FC = () => {
       <Text style={styles.cell}>{item.s}</Text>
       <Text style={styles.cell}>{item.p.toFixed(2)}</Text>
       <Text style={styles.cell}>{item.q.toFixed(2)}</Text>
-      {/* <Text style={styles.cell}>{item.p}</Text>
-      <Text style={styles.cell}>{item.q}</Text> */}
       <Text style={styles.cell}>{new Date(item.t).toLocaleTimeString()}</Text>
     </View>
   );
@@ -72,32 +71,41 @@ const MarketData: React.FC = () => {
       </View>
     );
   }
+  const data = {
+    labels:
+      tradeData.length > 5
+        ? tradeData
+            .slice(tradeData.length - 5, tradeData.length)
+            .map(item => new Date(item.t).toLocaleTimeString())
+        : tradeData.map(item => new Date(item.t).toLocaleTimeString()),
+    datasets: [
+      {
+        data:
+          tradeData.length > 5
+            ? tradeData
+                .slice(tradeData.length - 5, tradeData.length)
+                .map(item => item.p)
+            : tradeData.map(item => item.p),
+        strokeWidth: 2,
+      },
+    ],
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
-        {/* <LineChart
-          data={{
-            // labels: timestamps,
-            datasets: [
-              {
-                data:
-                  chartData.length > 50
-                    ? chartData.slice(chartData.length - 50, chartData.length)
-                    : chartData,
-              },
-            ],
-          }}
-          width={Dimensions.get('window').width - 10} // from react-native
+        <LineChart
+          data={data}
+          width={Dimensions.get('window').width - 10}
           height={220}
           yAxisLabel="$"
           yAxisSuffix="k"
-          yAxisInterval={1} // optional, defaults to 1
+          yAxisInterval={1}
           chartConfig={{
             backgroundColor: '#03396C',
             backgroundGradientFrom: '#03396C',
             backgroundGradientTo: '#03396C',
-            decimalPlaces: 2, // optional, defaults to 2dp
+            decimalPlaces: 2,
             color: () => '#067EEF',
             labelColor: () => '#067EEF',
             style: {
@@ -110,11 +118,8 @@ const MarketData: React.FC = () => {
             },
           }}
           bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        /> */}
+          style={styles.lineChart}
+        />
       </View>
       <View style={styles.tableHeader}>
         <Text style={styles.headerCell}>Trade</Text>
@@ -150,6 +155,10 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     alignItems: 'center',
+  },
+  lineChart: {
+    marginVertical: 8,
+    borderRadius: 16,
   },
   tableHeader: {
     flexDirection: 'row',
