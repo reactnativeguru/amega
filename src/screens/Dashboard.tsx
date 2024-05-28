@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Text,
   TextInput,
   FlatList,
   Image,
@@ -12,6 +11,7 @@ import {
 import {getIPDetail} from '../utils/RequestHandler';
 import {DashboardProps} from '../types/Navigation';
 import {IPAPIResponse} from '../types/APIResponse';
+import IPDetail from '../components/IPDetail';
 
 const {width} = Dimensions.get('window');
 
@@ -55,18 +55,7 @@ const Dashboard: React.FC<DashboardProps> = ({navigation}) => {
         onChangeText={setIp}
         style={styles.input}
       />
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>IP:</Text> {ip}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>ISP:</Text> {isp}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>Timezone:</Text> {`UTC ${timezone}`}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>Address:</Text> {address}
-      </Text>
+      <IPDetail ip={ip} isp={isp} timezone={timezone} address={address} />
       <FlatList
         data={images}
         renderItem={({item, index}) => (
@@ -90,18 +79,12 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  boldLabel: {
-    fontWeight: 'bold',
-  },
   input: {
     borderWidth: 1,
     borderColor: '#03396C',
     borderRadius: 4,
     backgroundColor: '#F4F4F4',
+    color: '#000',
     marginBottom: 20,
     paddingVertical: 15,
     paddingHorizontal: 10,

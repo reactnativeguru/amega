@@ -66,7 +66,7 @@ const MarketData: React.FC = () => {
 
   if (chartData.length <= 5) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={styles.loadingContainer} testID="loading-indicator">
         <ActivityIndicator size="large" color="#03396C" />
       </View>
     );
@@ -93,7 +93,7 @@ const MarketData: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.chartContainer}>
+      <View style={styles.chartContainer} testID="line-chart">
         <LineChart
           data={data}
           width={Dimensions.get('window').width - 10}
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',
+    color: '#000',
   },
   row: {
     flexDirection: 'row',
@@ -185,6 +186,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flex: 1,
     textAlign: 'center',
+    color: '#000',
   },
 });
 

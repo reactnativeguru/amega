@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {getIPDetail} from '../utils/RequestHandler';
 import {IPAPIResponse} from '../types/APIResponse';
+import IPDetail from '../components/IPDetail';
 
 type RootStackParamList = {
   Profile: {
@@ -56,20 +57,12 @@ const Profile: React.FC<Props> = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>IP:</Text> {ip ? ip : ipDetails.ip}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>ISP:</Text> {isp ? isp : ipDetails.isp}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>Timezone:</Text>{' '}
-        {`UTC ${timezone ? timezone : ipDetails.timezone}`}
-      </Text>
-      <Text style={styles.label}>
-        <Text style={styles.boldLabel}>Address:</Text>{' '}
-        {address ? address : ipDetails.address}
-      </Text>
+      <IPDetail
+        ip={ip ? ip : ipDetails.ip}
+        isp={isp ? isp : ipDetails.isp}
+        timezone={timezone ? timezone : ipDetails.timezone}
+        address={address ? address : ipDetails.address}
+      />
       {image && <Image source={image} style={styles.image} />}
     </View>
   );
@@ -80,13 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  boldLabel: {
-    fontWeight: 'bold',
   },
   image: {
     width: '100%',
